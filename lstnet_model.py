@@ -311,6 +311,20 @@ def LSTNetModel(init, input_shape):
     # Apply a GRU layer (with activation set to 'relu' as per the paper) and take the returned states as result
     _, R = GRU(init.GRUUnits, activation="relu", return_sequences = False, return_state = True)(C)
     R    = Dropout(init.dropout)(R)
+
+    # Apply a Attention Mechanism 注意力机制  got RNN hidden state R
+    if init.skip == 0 and init.attention == 1:
+        Att  = Dense(1,activation='tanh')(R)
+        Att  = Flatten()(Att)
+        Att  = Activation('softmax')(Att)
+        Att  = RepeatVector(untis)(Att)
+        Att  = Permute([2,1])(Att)
+
+        R    = merge([R, Att],mode='mul')   #mul
+
+
+    # SkipGRU
+    if init.attention == 0 and init.skip > 0:
     
     # SkipGRU
     if init.skip > 0:
