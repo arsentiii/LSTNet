@@ -17,6 +17,8 @@ class LSTNetInit(object):
     #                        If set to 0, the CNN layer will be omitted
     #    GRUUnits:        Number of hidden states in the GRU layer
     #                        Default: 100
+    #    attention:       Apple Attention Mechanism Model
+    #                        Default:1 
     #    SkipGRUUnits:    Number of hidden states in the SkipGRU layer
     #                        Default: 5
     #    skip:            Number of timeseries to skip. 0 => do not add Skip GRU layer
@@ -118,6 +120,7 @@ class LSTNetInit(object):
             self.CNNKernel       =     args["CNNKernel"]
             self.GRUUnits        =     args["GRUUnits"]
             self.SkipGRUUnits    =     args["SkipGRUUnits"]
+            self.attention       =     args["attention"]           
             self.skip            =     args["skip"]
             self.dropout         =     args["dropout"]
             self.normalise       =     args["normalize"]
@@ -154,6 +157,7 @@ class LSTNetInit(object):
             self.CNNFilters      =     args.CNNFilters
             self.CNNKernel       =     args.CNNKernel
             self.GRUUnits        =     args.GRUUnits
+            self.attention       =     args.attention
             self.SkipGRUUnits    =     args.SkipGRUUnits
             self.skip            =     args.skip
             self.dropout         =     args.dropout
@@ -197,6 +201,7 @@ class LSTNetInit(object):
         log.debug("CNN Kernel: %d", self.CNNKernel)
         log.debug("GRU Units: %d", self.GRUUnits)
         log.debug("Skip GRU Units: %d", self.SkipGRUUnits)
+        log.debug("Attetion: %d", self.attention)
         log.debug("Skip: %d", self.skip)
         log.debug("Dropout: %f", self.dropout)
         log.debug("Normalise: %d", self.normalise)
@@ -236,6 +241,7 @@ def GetArguments():
     parser.add_argument('--CNNFilters', type=int, default=100, help='Number of CNN layer filters. Default=100. If set to 0, the CNN layer will be omitted')
     parser.add_argument('--CNNKernel', type=int, default=6, help='Size of the CNN filters. Default=6. If set to 0, the CNN layer will be omitted')
     parser.add_argument('--GRUUnits', type=int, default=100, help='Number of GRU hidden units. Default=100')
+    parser.add_argument('--attention', type=int, default=1, help='attention mechanism switcher, defalut=1, 1=True,0 = False')
     parser.add_argument('--SkipGRUUnits', type=int, default=5, help='Number of hidden units in the Skip GRU layer. Default=5')
     parser.add_argument('--skip', type=int, default=24,
                         help='Size of the window to skip in the Skip GRU layer. Default=24. If set to 0, the SkipGRU layer will be omitted')
