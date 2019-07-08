@@ -314,18 +314,15 @@ def LSTNetModel(init, input_shape):
     R    = Dropout(init.dropout)(R)
 
     # Apply a Attention Mechanism 注意力机制  got RNN hidden state R
-    if init.skip == 0 and init.attention == 1:
+    if init.skip == 0 and init.attention == 1:  #1 = True 0 = False
         Att  = Dense(1,activation='tanh')(R)
         Att  = Flatten()(Att)
         Att  = Activation('softmax')(Att)
         Att  = RepeatVector(untis)(Att)
         Att  = Permute([2,1])(Att)
         R    = merge([R, Att],mode='mul')   #mul
-
-
     # SkipGRU
-    if init.attention == 0 and init.skip > 0:       
-	
+    if init.attention == 0 and init.skip > 0:
 	# Calculate the number of values to use which is equal to the window divided by how many time values to skip
         pt   = int(init.window / init.skip)
 
