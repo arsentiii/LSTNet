@@ -308,6 +308,7 @@ def LSTNetModel(init, input_shape):
         C = X
     
     # GRU
+	
     # Apply a GRU layer (with activation set to 'relu' as per the paper) and take the returned states as result
     _, R = GRU(init.GRUUnits, activation="relu", return_sequences = False, return_state = True)(C)
     R    = Dropout(init.dropout)(R)
@@ -319,15 +320,12 @@ def LSTNetModel(init, input_shape):
         Att  = Activation('softmax')(Att)
         Att  = RepeatVector(untis)(Att)
         Att  = Permute([2,1])(Att)
-
         R    = merge([R, Att],mode='mul')   #mul
 
 
     # SkipGRU
-    if init.attention == 0 and init.skip > 0:
-    
-    # SkipGRU
-    if init.skip > 0:
+    if init.attention == 0 and init.skip > 0:       
+	
 	# Calculate the number of values to use which is equal to the window divided by how many time values to skip
         pt   = int(init.window / init.skip)
 
