@@ -4,6 +4,7 @@ import tensorflow as tf
 
 from tensorflow.keras.models import Model, model_from_json
 from tensorflow.keras.layers import Input, GRU, Conv2D, Dropout, Flatten, Dense, Reshape, Concatenate, Add
+from tensorflow.keras.layers import Multiply, Activation, Permute, RepeatVector
 from tensorflow.keras.optimizers import SGD, RMSprop, Adam
 
 from tensorflow.keras import backend as K
@@ -320,7 +321,7 @@ def LSTNetModel(init, input_shape):
         Att  = Activation('softmax')(Att)
         Att  = RepeatVector(untis)(Att)
         Att  = Permute([2,1])(Att)
-        R    = merge([R, Att],mode='mul')   #mul
+        R    = Multiply()([R, Att]) #att mul
     # SkipGRU
     if init.attention == 0 and init.skip > 0:
 	# Calculate the number of values to use which is equal to the window divided by how many time values to skip
