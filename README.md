@@ -94,12 +94,10 @@ As described in the paper the data is composed of 4 publicly available datasets 
 ## Environment
 ### Primary environment
 The results were obtained on a system with the following versions:
-- Python 3.6.8
-- Tensorflow 1.11.0
-- Keras 2.1.6-tf  
-
-### TensorFlow 2.0 Ready
-The model has also been tested on TF 2.0 alpha version:
-- Python 3.6.7
-- Tensorflow 2.0.0-alpha0
+- Python 3.6
+- Tensorflow 1.13.0
 - Keras 2.2.4-tf
+ 
+Attention layer is done.
+
+
